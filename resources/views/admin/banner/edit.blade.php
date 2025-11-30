@@ -18,8 +18,8 @@
                 @csrf
                 @method('PUT')
                 <div class="form-group">
-                    <label for="title">Judul</label>
-                    <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title', $banner->title) }}" required>
+                    <label for="title">Judul (Opsional)</label>
+                    <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title', $banner->title) }}">
                     @error('title')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

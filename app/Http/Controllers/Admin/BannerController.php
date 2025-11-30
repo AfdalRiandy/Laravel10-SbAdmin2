@@ -23,7 +23,7 @@ class BannerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'nullable|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'position' => 'required|in:main,side_top,side_bottom',
             'link' => 'nullable|url',
@@ -51,7 +51,7 @@ class BannerController extends Controller
     public function update(Request $request, Banner $banner)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'position' => 'required|in:main,side_top,side_bottom',
             'link' => 'nullable|url',

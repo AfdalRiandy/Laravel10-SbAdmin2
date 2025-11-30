@@ -1,196 +1,114 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.auth')
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Login - SIKAMAS</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="{{ asset('assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
-    
-    <style>
-        .bg-login-image {
-            background: linear-gradient(135deg, #52b788 0%, #2d6a4f 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            padding-top: 50px;
-        }
-        
-        .logo-wrapper {
-            text-align: center;
-            padding: 20px;
-            z-index: 2;
-        }
-        
-        .logo-wrapper img {
-            max-width: 50%;
-            height: auto;
-        }
-        
-        .logo-title {
-            color: #fff;
-            margin-top: 15px;
-            font-weight: 700;
-            font-size: 1.8rem;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-        
-        .logo-subtitle {
-            color: rgba(255,255,255,0.9);
-            font-size: 1rem;
-            margin-top: 5px;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-        }
-        
-        .pattern-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.8;
-        }
-        
-        .card {
-            border: none;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .btn-user {
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-        
-        .p-5 {
-            padding: 2.5rem !important;
-        }
-        
-        @media (max-width: 991.98px) {
-            .bg-login-image {
-                min-height: 200px;
-            }
-        }
-    </style>
-</head>
-
-<body class="bg-gradient-primary">
-
-    <div class="container">
-
-        <!-- Outer Row -->
-        <div class="row justify-content-center">
-
-            <div class="col-xl-10 col-lg-12 col-md-9">
-
-                <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
-                        <!-- Nested Row within Card Body -->
-                        <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image">
-                                <div class="pattern-overlay"></div>
-                                <div class="logo-wrapper">
-                                    <!-- Replace with your actual logo -->
-                                    <img src="{{ asset('assets/img/undraw_posting_photo.svg') }}" alt="Logo" onerror="this.src='{{ asset('assets/img/undraw_rocket.svg') }}'; this.style.maxWidth='60%';">
-                                    <h1 class="logo-title">Sikamas Management</h1>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
-                                    </div>
-
-                                    @if(session('error'))
-                                        <div class="alert alert-danger">
-                                            {{ session('error') }}
-                                        </div>
-                                    @endif
-
-                                    <form class="user" method="POST" action="{{ route('login') }}">
-                                        @csrf
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text bg-transparent border-right-0">
-                                                        <i class="fas fa-user text-primary"></i>
-                                                    </span>
-                                                </div>
-                                                <input type="text" class="form-control form-control-user border-left-0 @error('credential') is-invalid @enderror"
-                                                    id="credential" name="credential" 
-                                                    placeholder="Enter Email" value="{{ old('credential') }}" required autofocus>
-                                            </div>
-                                            @error('credential')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text bg-transparent border-right-0">
-                                                        <i class="fas fa-lock text-primary"></i>
-                                                    </span>
-                                                </div>
-                                                <input type="password" class="form-control form-control-user border-left-0 @error('password') is-invalid @enderror"
-                                                    id="password" name="password" placeholder="Password" required>
-                                            </div>
-                                            @error('password')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="remember_me" name="remember">
-                                                <label class="custom-control-label" for="remember_me">Remember Me</label>
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary btn-user btn-block">
-                                            <i class="fas fa-sign-in-alt mr-2"></i> Login
-                                        </button>
-                                    </form>
-                                    <hr>
-                                    <div class="text-center">
-                                        <a class="small" href="{{ route('register') }}">Create a Account!</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
+@section('content')
+<div class="w-full max-w-4xl bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row">
+    <!-- Left Side: Illustration/Branding -->
+    <div class="w-full md:w-1/2 bg-gradient-to-br from-primary to-primary-dark p-8 md:p-12 flex flex-col justify-center items-center text-white text-center relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full opacity-10">
+            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M0 100 C 20 0 50 0 100 100 Z" fill="white" />
+            </svg>
         </div>
-
+        
+        <div class="relative z-10">
+            <div class="mb-6 bg-white/20 p-4 rounded-full inline-block backdrop-blur-sm">
+                <i class="fas fa-shopping-bag text-4xl"></i>
+            </div>
+            <h2 class="text-3xl font-bold mb-4">Selamat Datang Kembali!</h2>
+            <p class="text-blue-100 mb-8">Masuk untuk mulai berbelanja atau mengelola toko Anda di MarketSekolah.</p>
+            <div class="hidden md:block">
+                <p class="text-sm text-blue-200">Belum punya akun?</p>
+                <a href="{{ route('register') }}" class="inline-block mt-2 px-6 py-2 border-2 border-white rounded-full font-semibold hover:bg-white hover:text-primary transition duration-300">
+                    Daftar Sekarang
+                </a>
+            </div>
+        </div>
     </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- Right Side: Login Form -->
+    <div class="w-full md:w-1/2 p-8 md:p-12 bg-white">
+        <div class="text-center md:text-left mb-8">
+            <h3 class="text-2xl font-bold text-gray-900">Masuk Akun</h3>
+            <p class="text-gray-500 text-sm mt-1">Silakan masukkan email dan password Anda.</p>
+        </div>
 
-    <!-- Core plugin JavaScript-->
-    <script src="{{ asset('assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+        <!-- Session Status -->
+        @if (session('status'))
+            <div class="mb-4 font-medium text-sm text-green-600">
+                {{ session('status') }}
+            </div>
+        @endif
 
-    <!-- Custom scripts for all pages-->
-    <script src="{{ asset('assets/js/sb-admin-2.min.js') }}"></script>
+        <!-- Validation Errors -->
+        @if ($errors->any())
+            <div class="mb-4 p-4 bg-red-50 rounded-lg border border-red-100">
+                <div class="font-medium text-red-600 text-sm">Whoops! Ada masalah.</div>
+                <ul class="mt-1 list-disc list-inside text-sm text-red-600">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-</body>
+        <form method="POST" action="{{ route('login') }}" class="space-y-6">
+            @csrf
 
-</html>
+            <!-- Email Address -->
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-envelope text-gray-400"></i>
+                    </div>
+                    <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" 
+                        class="pl-10 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 transition duration-200" 
+                        placeholder="nama@sekolah.sch.id">
+                </div>
+            </div>
+
+            <!-- Password -->
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-lock text-gray-400"></i>
+                    </div>
+                    <input id="password" type="password" name="password" required autocomplete="current-password" 
+                        class="pl-10 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 transition duration-200" 
+                        placeholder="••••••••">
+                </div>
+            </div>
+
+            <!-- Remember Me & Forgot Password -->
+            <div class="flex items-center justify-between">
+                <label for="remember_me" class="inline-flex items-center">
+                    <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-primary shadow-sm focus:ring-primary" name="remember">
+                    <span class="ml-2 text-sm text-gray-600">Ingat saya</span>
+                </label>
+
+                @if (Route::has('password.request'))
+                    <a class="text-sm text-primary hover:text-primary-dark font-medium" href="{{ route('password.request') }}">
+                        Lupa password?
+                    </a>
+                @endif
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-bold text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition duration-300 transform hover:-translate-y-0.5">
+                Masuk Sekarang
+            </button>
+
+            <!-- Mobile Register Link -->
+            <div class="mt-6 text-center md:hidden">
+                <p class="text-sm text-gray-600">
+                    Belum punya akun? 
+                    <a href="{{ route('register') }}" class="font-medium text-primary hover:text-primary-dark">
+                        Daftar Sekarang
+                    </a>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+@endsection

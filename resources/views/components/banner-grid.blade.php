@@ -10,18 +10,13 @@
     <!-- Main Banner -->
     <div class="md:col-span-2 relative rounded-xl overflow-hidden h-64 md:h-80 bg-gray-200 group">
         @if($mainBanner)
-            <img src="{{ asset('storage/' . $mainBanner->image_path) }}" alt="{{ $mainBanner->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-                <div>
-                    <h2 class="text-white text-2xl font-bold mb-2">{{ $mainBanner->title }}</h2>
-                    @if($mainBanner->description)
-                        <p class="text-white/90 mb-4">{{ $mainBanner->description }}</p>
-                    @endif
-                    @if($mainBanner->link)
-                        <a href="{{ $mainBanner->link }}" class="btn-primary inline-block">Lihat Detail</a>
-                    @endif
-                </div>
-            </div>
+            @if($mainBanner->link)
+                <a href="{{ $mainBanner->link }}" class="block w-full h-full">
+                    <img src="{{ asset('storage/' . $mainBanner->image_path) }}" alt="{{ $mainBanner->title ?? 'Banner Utama' }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                </a>
+            @else
+                <img src="{{ asset('storage/' . $mainBanner->image_path) }}" alt="{{ $mainBanner->title ?? 'Banner Utama' }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            @endif
         @else
             <img src="https://via.placeholder.com/800x400?text=Banner+Utama" alt="Banner Utama" class="w-full h-full object-cover">
         @endif
@@ -32,13 +27,10 @@
         <!-- Side Top -->
         <div class="relative rounded-xl overflow-hidden flex-1 bg-gray-200 group">
             @if($sideTopBanner)
-                <img src="{{ asset('storage/' . $sideTopBanner->image_path) }}" alt="{{ $sideTopBanner->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                <img src="{{ asset('storage/' . $sideTopBanner->image_path) }}" alt="{{ $sideTopBanner->title ?? 'Side Top' }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                 @if($sideTopBanner->link)
                     <a href="{{ $sideTopBanner->link }}" class="absolute inset-0"></a>
                 @endif
-                <div class="absolute inset-0 bg-black/30 flex items-center justify-center pointer-events-none">
-                    <span class="text-white font-bold text-lg">{{ $sideTopBanner->title }}</span>
-                </div>
             @else
                 <img src="https://via.placeholder.com/400x200?text=Side+Top" alt="Side Top" class="w-full h-full object-cover">
             @endif
@@ -47,13 +39,10 @@
         <!-- Side Bottom -->
         <div class="relative rounded-xl overflow-hidden flex-1 bg-gray-200 group">
             @if($sideBottomBanner)
-                <img src="{{ asset('storage/' . $sideBottomBanner->image_path) }}" alt="{{ $sideBottomBanner->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                <img src="{{ asset('storage/' . $sideBottomBanner->image_path) }}" alt="{{ $sideBottomBanner->title ?? 'Side Bottom' }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                 @if($sideBottomBanner->link)
                     <a href="{{ $sideBottomBanner->link }}" class="absolute inset-0"></a>
                 @endif
-                <div class="absolute inset-0 bg-black/30 flex items-center justify-center pointer-events-none">
-                    <span class="text-white font-bold text-lg">{{ $sideBottomBanner->title }}</span>
-                </div>
             @else
                 <img src="https://via.placeholder.com/400x200?text=Side+Bottom" alt="Side Bottom" class="w-full h-full object-cover">
             @endif

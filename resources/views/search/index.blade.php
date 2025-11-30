@@ -1,20 +1,20 @@
 @extends('layouts.marketplace')
 
 @section('content')
-<div class="bg-gray-50 min-h-screen py-8">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col md:flex-row gap-8">
+<div class="min-h-screen py-8 bg-gray-50">
+    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div class="flex flex-col gap-8 md:flex-row">
             <!-- Sidebar Filters -->
-            <div class="w-full md:w-64 flex-shrink-0">
-                <div class="bg-white rounded-lg shadow-sm p-6 sticky top-24">
-                    <h3 class="font-bold text-gray-900 mb-4">Filter</h3>
+            <div class="flex-shrink-0 w-full md:w-64">
+                <div class="sticky p-6 bg-white rounded-lg shadow-sm top-24">
+                    <h3 class="mb-4 font-bold text-gray-900">Filter</h3>
                     
                     <form action="{{ route('search.index') }}" method="GET">
                         <input type="hidden" name="q" value="{{ $query }}">
                         <input type="hidden" name="sort" value="{{ $sort }}">
                         
                         <div class="mb-6">
-                            <h4 class="text-sm font-medium text-gray-700 mb-2">Kategori</h4>
+                            <h4 class="mb-2 text-sm font-medium text-gray-700">Kategori</h4>
                             <div class="space-y-2">
                                 <label class="flex items-center">
                                     <input type="radio" name="category" value="" class="text-primary focus:ring-primary" {{ request('category') == '' ? 'checked' : '' }} onchange="this.form.submit()">
@@ -34,7 +34,7 @@
 
             <!-- Main Content -->
             <div class="flex-1">
-                <div class="bg-white rounded-lg shadow-sm p-4 mb-6 flex flex-col sm:flex-row items-center justify-between">
+                <div class="flex flex-col items-center justify-between p-4 mb-6 bg-white rounded-lg shadow-sm sm:flex-row">
                     <div class="mb-4 sm:mb-0">
                         <h1 class="text-lg font-bold text-gray-900">
                             @if($query)
@@ -47,7 +47,7 @@
                     </div>
                     
                     <div class="flex items-center">
-                        <span class="text-sm text-gray-600 mr-2">Urutkan:</span>
+                        <span class="mr-2 text-sm text-gray-600">Urutkan:</span>
                         <form action="{{ route('search.index') }}" method="GET">
                             <input type="hidden" name="q" value="{{ $query }}">
                             <input type="hidden" name="category" value="{{ $categoryId }}">
@@ -62,7 +62,7 @@
                 </div>
 
                 @if($products->count() > 0)
-                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
                         @foreach($products as $product)
                             <x-product-card :product="$product" />
                         @endforeach
@@ -71,11 +71,11 @@
                         {{ $products->links() }}
                     </div>
                 @else
-                    <div class="bg-white rounded-lg shadow-sm p-12 text-center">
-                        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400">
+                    <div class="p-12 text-center bg-white rounded-lg shadow-sm">
+                        <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 text-gray-400 bg-gray-100 rounded-full">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                         </div>
-                        <h3 class="text-lg font-medium text-gray-900 mb-2">Produk tidak ditemukan</h3>
+                        <h3 class="mb-2 text-lg font-medium text-gray-900">Produk tidak ditemukan</h3>
                         <p class="text-gray-500">Coba gunakan kata kunci lain atau hapus filter kategori.</p>
                     </div>
                 @endif
