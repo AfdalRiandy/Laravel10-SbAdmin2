@@ -2,7 +2,11 @@
 
 <div class="card-product bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100 h-full flex flex-col">
     <a href="{{ route('product.show', $product->slug) }}" class="block relative group">
-        <img src="https://via.placeholder.com/300" alt="{{ $product->name }}" class="w-full ratio-1-1 object-cover group-hover:opacity-90 transition">
+        @php
+            $primaryImage = $product->images->where('is_primary', true)->first() ?? $product->images->first();
+            $imageUrl = $primaryImage ? asset('storage/' . $primaryImage->image_path) : 'https://via.placeholder.com/300';
+        @endphp
+        <img src="{{ $imageUrl }}" alt="{{ $product->name }}" class="w-full ratio-1-1 object-cover group-hover:opacity-90 transition">
         @if($product->stock < 1)
             <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                 <span class="text-white font-bold px-3 py-1 bg-red-600 rounded">Habis</span>

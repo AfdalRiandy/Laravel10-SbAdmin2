@@ -18,6 +18,13 @@
             <span>Dashboard</span></a>
     </li>
 
+    <!-- Nav Item - Verifikasi Penjual -->
+    <li class="nav-item {{ request()->routeIs('kepala_sekolah.verifikasi*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('kepala_sekolah.verifikasi_penjual') }}">
+            <i class="fas fa-fw fa-check-circle"></i>
+            <span>Verifikasi Penjual</span></a>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider">
 

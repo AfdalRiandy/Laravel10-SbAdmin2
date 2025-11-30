@@ -28,14 +28,14 @@
                         
                         <!-- Search Bar -->
                         <div class="hidden sm:ml-6 sm:flex sm:space-x-8 flex-1 max-w-lg">
-                            <div class="relative w-full">
-                                <input type="text" class="w-full border-gray-300 rounded-full pl-4 pr-10 focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50" placeholder="Cari produk...">
-                                <button class="absolute right-0 top-0 mt-2 mr-3 text-gray-400 hover:text-primary">
+                            <form action="{{ route('search.index') }}" method="GET" class="relative w-full">
+                                <input type="text" name="q" value="{{ request('q') }}" class="w-full border-gray-300 rounded-full pl-4 pr-10 focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50" placeholder="Cari produk...">
+                                <button type="submit" class="absolute right-0 top-0 mt-2 mr-3 text-gray-400 hover:text-primary">
                                     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                     </svg>
                                 </button>
-                            </div>
+                            </form>
                         </div>
                     </div>
 

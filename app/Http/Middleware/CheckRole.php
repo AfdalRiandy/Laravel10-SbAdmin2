@@ -15,10 +15,12 @@ class CheckRole
         }
 
         $roles = explode('|', $role);
-        if (in_array(Auth::user()->role, $roles)) {
+        
+        // Check using Spatie Permission
+        if ($request->user()->hasAnyRole($roles)) {
             return $next($request);
         }
 
-        return redirect('/')->with('error', 'You do not have permission to access this page.');
+        return redirect('/')->with('error', 'Anda tidak memiliki izin untuk mengakses halaman ini.');
     }
 }

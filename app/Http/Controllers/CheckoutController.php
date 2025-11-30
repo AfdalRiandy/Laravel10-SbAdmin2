@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -15,15 +16,26 @@ class CheckoutController extends Controller
         if (!$cart || $cart->items->isEmpty()) {
             return redirect()->route('cart.index')->with('error', 'Keranjang kosong');
         }
-        return view('checkout.index', compact('cart'));
+        
+        $paymentMethods = PaymentMethod::where('is_active', true)->get();
+        
+        return view('checkout.index', compact('cart', 'paymentMethods'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'shipping_address' => 'required',
-            'payment_proof' => 'required|image|max:2048',
+            'payment_method_id' => 'required|exists:payment_methods,id',
         ]);
+
+        $paymentMethod = PaymentMethod::findOrFail($request->payment_method_id);
+        
+        if ($paymentMethod->type !== 'cod') {
+            $request->validate([
+                'payment_proof' => 'required|image|max:2048',
+            ]);
+        }
 
         $cart = auth()->user()->cart;
         $total = 0;
@@ -37,6 +49,7 @@ class CheckoutController extends Controller
             'total_price' => $total,
             'status' => 'pending',
             'shipping_address' => $request->shipping_address,
+            'payment_method_id' => $request->payment_method_id,
         ]);
 
         if ($request->hasFile('payment_proof')) {

@@ -33,20 +33,19 @@ class AuthenticatedSessionController extends Controller
             // Redirect based on user role
             $user = Auth::user();
             
-            switch ($user->role) {
-                case 'penjual':
-                    return redirect()->route('penjual.dashboard');
-                case 'admin':
-                    return redirect()->route('admin.dashboard');
-                case 'kepala_sekolah':
-                    return redirect()->route('kepala_sekolah.dashboard');
-                case 'guru_pembimbing':
-                    return redirect()->route('guru_pembimbing.dashboard');
-                case 'pembeli':
-                    return redirect()->route('pembeli.dashboard');
-                default:
-                    return redirect(RouteServiceProvider::HOME);
+            if ($user->hasRole('admin')) {
+                return redirect()->route('admin.dashboard');
+            } elseif ($user->hasRole('penjual')) {
+                return redirect()->route('seller.dashboard');
+            } elseif ($user->hasRole('kepala_sekolah')) {
+                return redirect()->route('kepala_sekolah.dashboard');
+            } elseif ($user->hasRole('guru_pendamping')) {
+                return redirect()->route('guru_pendamping.dashboard');
+            } elseif ($user->hasRole('pembeli')) {
+                return redirect()->route('pembeli.dashboard');
             }
+
+            return redirect(RouteServiceProvider::HOME);
         } catch (\Exception $e) {
             return back()->withErrors([
                 'credential' => 'The provided credentials do not match our records.',

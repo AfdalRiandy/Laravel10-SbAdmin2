@@ -3,7 +3,7 @@
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <!-- Banner -->
-    <x-banner-grid />
+    <x-banner-grid :banners="$banners" />
 
     <!-- Categories -->
     <div class="mb-12">
@@ -20,11 +20,25 @@
         </div>
     </div>
 
+    <!-- Popular Shops -->
+    @if($popularShops->count() > 0)
+    <div class="mb-12">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-xl font-bold text-gray-800">Toko Populer</h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            @foreach($popularShops as $shop)
+                <x-shop-card :shop="$shop" />
+            @endforeach
+        </div>
+    </div>
+    @endif
+
     <!-- Latest Products -->
     <div class="mb-12">
         <div class="flex items-center justify-between mb-6">
             <h2 class="text-xl font-bold text-gray-800">Produk Terbaru</h2>
-            <a href="#" class="text-primary text-sm font-medium hover:underline">Lihat Semua</a>
+            <a href="{{ route('search.index') }}" class="text-primary text-sm font-medium hover:underline">Lihat Semua</a>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
             @foreach($products as $product)

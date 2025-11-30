@@ -21,6 +21,20 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+                $user = Auth::user();
+                
+                if ($user->hasRole('admin')) {
+                    return redirect()->route('admin.dashboard');
+                } elseif ($user->hasRole('penjual')) {
+                    return redirect()->route('seller.dashboard');
+                } elseif ($user->hasRole('kepala_sekolah')) {
+                    return redirect()->route('kepala_sekolah.dashboard');
+                } elseif ($user->hasRole('guru_pendamping')) {
+                    return redirect()->route('guru_pendamping.dashboard');
+                } elseif ($user->hasRole('pembeli')) {
+                    return redirect()->route('pembeli.dashboard');
+                }
+
                 return redirect(RouteServiceProvider::HOME);
             }
         }

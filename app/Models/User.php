@@ -29,9 +29,19 @@ class User extends Authenticatable
         return $this->hasOne(PenjualProfile::class);
     }
 
+    public function staffProfile()
+    {
+        return $this->hasOne(StaffProfile::class);
+    }
+
     public function products()
     {
         return $this->hasMany(Product::class);
+    }
+
+    public function soldItems()
+    {
+        return $this->hasManyThrough(OrderItem::class, Product::class);
     }
 
     public function orders()

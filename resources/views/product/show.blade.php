@@ -7,16 +7,33 @@
             <!-- Image Gallery -->
             <div class="p-6 bg-gray-50">
                 <div class="aspect-w-1 aspect-h-1 rounded-lg overflow-hidden mb-4">
-                    <img src="https://via.placeholder.com/600" alt="{{ $product->name }}" class="w-full h-full object-cover">
+                    @php
+                        $primaryImage = $product->images->where('is_primary', true)->first() ?? $product->images->first();
+                        $initialImage = $primaryImage ? asset('storage/' . $primaryImage->image_path) : 'https://via.placeholder.com/600';
+                    @endphp
+                    <img id="main-image" src="{{ $initialImage }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
                 </div>
                 <div class="grid grid-cols-4 gap-2">
                     @foreach($product->images as $image)
-                        <div class="aspect-w-1 aspect-h-1 rounded-lg overflow-hidden cursor-pointer border-2 border-transparent hover:border-primary">
+                        <div class="aspect-w-1 aspect-h-1 rounded-lg overflow-hidden cursor-pointer border-2 border-transparent hover:border-primary thumbnail-container {{ $image->is_primary ? 'border-primary' : '' }}" 
+                             onclick="changeImage('{{ asset('storage/' . $image->image_path) }}', this)">
                             <img src="{{ asset('storage/' . $image->image_path) }}" class="w-full h-full object-cover">
                         </div>
                     @endforeach
                 </div>
             </div>
+
+            <script>
+                function changeImage(src, element) {
+                    document.getElementById('main-image').src = src;
+                    // Remove active class from all thumbnails
+                    document.querySelectorAll('.thumbnail-container').forEach(el => {
+                        el.classList.remove('border-primary');
+                    });
+                    // Add active class to clicked thumbnail
+                    element.classList.add('border-primary');
+                }
+            </script>
 
             <!-- Product Details -->
             <div class="p-8">
@@ -42,15 +59,22 @@
                 </div>
 
                 <div class="border-t border-b py-6 mb-8">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-xl font-bold text-gray-500 mr-4">
-                            {{ substr($product->user->name, 0, 1) }}
+                    <a href="{{ route('shop.show', $product->user->id) }}" class="flex items-center mb-4 hover:bg-gray-50 p-2 rounded-lg transition -mx-2">
+                        <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-xl font-bold text-gray-500 mr-4 overflow-hidden">
+                            @if($product->user->penjualProfile && $product->user->penjualProfile->shop_photo)
+                                <img src="{{ asset('storage/' . $product->user->penjualProfile->shop_photo) }}" alt="{{ $product->user->penjualProfile->shop_name }}" class="w-full h-full object-cover">
+                            @else
+                                {{ substr($product->user->penjualProfile->shop_name ?? $product->user->name, 0, 1) }}
+                            @endif
                         </div>
                         <div>
-                            <div class="font-bold text-gray-900">{{ $product->user->penjualProfile->alamat_toko ?? $product->user->name }}</div>
+                            <div class="font-bold text-gray-900">{{ $product->user->penjualProfile->shop_name ?? $product->user->name }}</div>
                             <div class="text-sm text-gray-500">{{ $product->user->penjualProfile->jurusan ?? 'Siswa SMK' }}</div>
                         </div>
-                    </div>
+                        <div class="ml-auto text-primary text-sm font-medium">
+                            Kunjungi Toko >
+                        </div>
+                    </a>
                 </div>
 
                 <form action="{{ route('cart.store') }}" method="POST" class="flex items-center space-x-4">

@@ -40,14 +40,14 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'peserta', 
         ]);
+
+        $user->assignRole('pembeli');
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        // Redirect to peserta dashboard
-        return redirect()->route('peserta.dashboard');
+        return redirect()->route('pembeli.dashboard');
     }
 }

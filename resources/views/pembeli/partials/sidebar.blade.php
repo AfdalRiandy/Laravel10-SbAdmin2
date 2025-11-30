@@ -21,6 +21,28 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Belanja Saya
+    </div>
+
+    <!-- Nav Item - Pesanan Saya -->
+    <li class="nav-item {{ request()->routeIs('pembeli.orders.*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('pembeli.orders.index') }}">
+            <i class="fas fa-fw fa-shopping-bag"></i>
+            <span>Pesanan Saya</span></a>
+    </li>
+
+    <!-- Nav Item - Riwayat Belanja -->
+    <li class="nav-item {{ request()->routeIs('pembeli.history.*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('pembeli.history.index') }}">
+            <i class="fas fa-fw fa-history"></i>
+            <span>Riwayat Belanja</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
         <!-- Nav Item - Return to Home -->
         <li class="nav-item">
             <a class="nav-link" href="{{ url('/') }}">

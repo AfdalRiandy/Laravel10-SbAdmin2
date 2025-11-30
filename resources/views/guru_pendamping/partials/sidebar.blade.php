@@ -21,6 +21,28 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Manajemen Siswa
+    </div>
+
+    <!-- Nav Item - Daftar Siswa -->
+    <li class="nav-item {{ request()->routeIs('guru_pendamping.students.*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('guru_pendamping.students.index') }}">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Daftar Siswa</span></a>
+    </li>
+
+    <!-- Nav Item - Laporan Penjualan -->
+    <li class="nav-item {{ request()->routeIs('guru_pendamping.reports.*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('guru_pendamping.reports.sales') }}">
+            <i class="fas fa-fw fa-chart-line"></i>
+            <span>Laporan Penjualan</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
         <!-- Nav Item - Return to Home -->
         <li class="nav-item">
             <a class="nav-link" href="{{ url('/') }}">

@@ -16,11 +16,17 @@ class Order extends Model
         'status',
         'payment_proof',
         'shipping_address',
+        'payment_method_id',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function paymentMethod()
+    {
+        return $this->belongsTo(PaymentMethod::class);
     }
 
     public function items()
