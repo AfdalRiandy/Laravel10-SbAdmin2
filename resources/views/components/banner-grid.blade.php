@@ -27,7 +27,13 @@
         <!-- Side Top -->
         <div class="relative rounded-xl overflow-hidden flex-1 bg-gray-200 group">
             @if($sideTopBanner)
-                <img src="{{ asset('storage/' . $sideTopBanner->image_path) }}" alt="{{ $sideTopBanner->title ?? 'Side Top' }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                <img 
+                    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" 
+                    data-src="{{ asset('storage/' . $sideTopBanner->image_path) }}" 
+                    alt="{{ $sideTopBanner->title ?? 'Side Top' }}" 
+                    loading="lazy"
+                    class="w-full h-full object-cover group-hover:scale-105 transition duration-500 lazy-load"
+                >
                 @if($sideTopBanner->link)
                     <a href="{{ $sideTopBanner->link }}" class="absolute inset-0"></a>
                 @endif
@@ -39,7 +45,13 @@
         <!-- Side Bottom -->
         <div class="relative rounded-xl overflow-hidden flex-1 bg-gray-200 group">
             @if($sideBottomBanner)
-                <img src="{{ asset('storage/' . $sideBottomBanner->image_path) }}" alt="{{ $sideBottomBanner->title ?? 'Side Bottom' }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                <img 
+                    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" 
+                    data-src="{{ asset('storage/' . $sideBottomBanner->image_path) }}" 
+                    alt="{{ $sideBottomBanner->title ?? 'Side Bottom' }}" 
+                    loading="lazy"
+                    class="w-full h-full object-cover group-hover:scale-105 transition duration-500 lazy-load"
+                >
                 @if($sideBottomBanner->link)
                     <a href="{{ $sideBottomBanner->link }}" class="absolute inset-0"></a>
                 @endif

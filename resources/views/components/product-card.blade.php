@@ -6,7 +6,13 @@
             $primaryImage = $product->images->where('is_primary', true)->first() ?? $product->images->first();
             $imageUrl = $primaryImage ? asset('storage/' . $primaryImage->image_path) : 'https://via.placeholder.com/300';
         @endphp
-        <img src="{{ $imageUrl }}" alt="{{ $product->name }}" class="w-full ratio-1-1 object-cover group-hover:opacity-90 transition">
+        <img 
+            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" 
+            data-src="{{ $imageUrl }}" 
+            alt="{{ $product->name }}" 
+            loading="lazy"
+            class="w-full ratio-1-1 object-cover group-hover:opacity-90 transition lazy-load"
+        >
         @if($product->stock < 1)
             <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                 <span class="text-white font-bold px-3 py-1 bg-red-600 rounded">Habis</span>
