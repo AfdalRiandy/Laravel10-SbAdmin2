@@ -8,6 +8,10 @@ use App\Http\Controllers\GuruPendampingController;
 use App\Http\Controllers\KepalaSekolahController;
 use App\Http\Controllers\PenjualController;
 use App\Http\Controllers\PembeliController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +24,17 @@ use App\Http\Controllers\PembeliController;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.custom-login');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/product/{slug}', [ProductController::class, 'show'])->name('product.show');
+Route::get('/category/{slug}', [ProductController::class, 'category'])->name('category.show');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
+    Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
+    
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 });
 
 Route::get('/dashboard', function () {
