@@ -71,7 +71,7 @@
                     <a href="{{ route('admin.products.edit', $product) }}" class="btn btn-warning btn-block">
                         <i class="fas fa-edit"></i> Edit Produk
                     </a>
-                    <form action="{{ route('admin.products.destroy', $product) }}" method="POST" class="mt-2" onsubmit="return confirm('Apakah Anda yakin ingin menghapus produk ini?')">
+                    <form action="{{ route('admin.products.destroy', $product) }}" method="POST" class="mt-2" onsubmit="confirmDelete(event)">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-block">

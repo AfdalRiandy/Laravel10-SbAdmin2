@@ -2,67 +2,67 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Laporan Produk</h1>
+    <div class="mb-4 d-sm-flex align-items-center justify-content-between">
+        <h1 class="mb-0 text-gray-800 h3">Laporan Produk</h1>
     </div>
 
     <!-- Summary -->
     <div class="row">
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
+        <div class="mb-4 col-xl-3 col-md-6">
+            <div class="py-2 shadow card border-left-primary h-100">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Produk</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalProducts }}</div>
+                        <div class="mr-2 col">
+                            <div class="mb-1 text-xs font-weight-bold text-primary text-uppercase">Total Produk</div>
+                            <div class="mb-0 text-gray-800 h5 font-weight-bold">{{ $totalProducts }}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-box fa-2x text-gray-300"></i>
+                            <i class="text-gray-300 fas fa-box fa-2x"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
+        <div class="mb-4 col-xl-3 col-md-6">
+            <div class="py-2 shadow card border-left-success h-100">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Produk Aktif</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $activeProducts }}</div>
+                        <div class="mr-2 col">
+                            <div class="mb-1 text-xs font-weight-bold text-success text-uppercase">Produk Aktif</div>
+                            <div class="mb-0 text-gray-800 h5 font-weight-bold">{{ $activeProducts }}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-check-circle fa-2x text-gray-300"></i>
+                            <i class="text-gray-300 fas fa-check-circle fa-2x"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
+        <div class="mb-4 col-xl-3 col-md-6">
+            <div class="py-2 shadow card border-left-warning h-100">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Stok Rendah</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $lowStock }}</div>
+                        <div class="mr-2 col">
+                            <div class="mb-1 text-xs font-weight-bold text-warning text-uppercase">Stok Rendah</div>
+                            <div class="mb-0 text-gray-800 h5 font-weight-bold">{{ $lowStock }}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
+                            <i class="text-gray-300 fas fa-exclamation-triangle fa-2x"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-danger shadow h-100 py-2">
+        <div class="mb-4 col-xl-3 col-md-6">
+            <div class="py-2 shadow card border-left-danger h-100">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Stok Habis</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $outOfStock }}</div>
+                        <div class="mr-2 col">
+                            <div class="mb-1 text-xs font-weight-bold text-danger text-uppercase">Stok Habis</div>
+                            <div class="mb-0 text-gray-800 h5 font-weight-bold">{{ $outOfStock }}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-times-circle fa-2x text-gray-300"></i>
+                            <i class="text-gray-300 fas fa-times-circle fa-2x"></i>
                         </div>
                     </div>
                 </div>
@@ -73,8 +73,8 @@
     <!-- Products by Category -->
     <div class="row">
         <div class="col-lg-6">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
+            <div class="mb-4 shadow card">
+                <div class="py-3 card-header">
                     <h6 class="m-0 font-weight-bold text-primary">Produk per Kategori</h6>
                 </div>
                 <div class="card-body">
@@ -101,8 +101,8 @@
         </div>
 
         <div class="col-lg-6">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
+            <div class="mb-4 shadow card">
+                <div class="py-3 card-header">
                     <h6 class="m-0 font-weight-bold text-primary">Produk Terlaris</h6>
                 </div>
                 <div class="card-body">
@@ -130,8 +130,8 @@
     </div>
 
     <!-- Products Table -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
+    <div class="mb-4 shadow card">
+        <div class="py-3 card-header">
             <h6 class="m-0 font-weight-bold text-primary">Detail Produk</h6>
         </div>
         <div class="card-body">
@@ -182,4 +182,13 @@
         </div>
     </div>
 </div>
+@endsection
+
+
+@section('scripts')
+<script>
+    $(document).ready(function() {
+        $('#dataTable').DataTable();
+    });
+</script>
 @endsection

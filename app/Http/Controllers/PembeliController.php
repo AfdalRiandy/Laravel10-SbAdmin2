@@ -68,13 +68,13 @@ class PembeliController extends Controller
 
     public function orders()
     {
-        $orders = Auth::user()->orders()->whereIn('status', ['pending', 'processing', 'shipped'])->latest()->get();
+        $orders = Auth::user()->orders()->with(['items.product.images'])->whereIn('status', ['pending', 'processing', 'shipped'])->latest()->get();
         return view('pembeli.orders.index', compact('orders'));
     }
 
     public function history()
     {
-        $orders = Auth::user()->orders()->whereIn('status', ['completed', 'cancelled'])->latest()->get();
+        $orders = Auth::user()->orders()->with(['items.product.images'])->whereIn('status', ['completed', 'cancelled'])->latest()->get();
         return view('pembeli.history.index', compact('orders'));
     }
 }

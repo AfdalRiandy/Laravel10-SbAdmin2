@@ -59,10 +59,10 @@
                                 <a href="{{ route('seller.products.edit', $product) }}" class="btn btn-sm btn-warning">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <form action="{{ route('seller.products.destroy', $product) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus?')">
+                                <form action="{{ route('seller.products.destroy', $product) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger">
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="confirmDelete(event)">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>

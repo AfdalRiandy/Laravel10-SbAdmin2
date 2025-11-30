@@ -15,6 +15,7 @@ class SearchController extends Controller
         $sort = $request->input('sort', 'latest');
 
         $products = Product::where('is_active', true)
+            ->with(['category', 'images', 'user.penjualProfile'])
             ->when($query, function ($q) use ($query) {
                 return $q->where(function ($subQ) use ($query) {
                     $subQ->where('name', 'like', '%' . $query . '%')

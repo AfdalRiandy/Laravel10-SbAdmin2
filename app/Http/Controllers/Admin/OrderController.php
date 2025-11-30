@@ -13,7 +13,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::with(['user', 'items.product'])->latest()->get();
+        $orders = Order::with(['user', 'items.product.images'])->latest()->paginate(20);
         return view('admin.order.index', compact('orders'));
     }
 
@@ -22,7 +22,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        $order->load(['user', 'items.product']);
+        $order->load(['user', 'items.product.images']);
         return view('admin.order.show', compact('order'));
     }
 

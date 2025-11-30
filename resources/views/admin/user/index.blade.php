@@ -111,7 +111,7 @@
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 @if($user->id !== auth()->id())
-                                <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus pengguna ini?')">
+                                <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="d-inline" onsubmit="confirmDelete(event)">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger" title="Hapus">

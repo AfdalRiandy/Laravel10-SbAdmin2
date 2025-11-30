@@ -119,11 +119,22 @@
 
 <script>
     function deleteImage(imageId) {
-        if(confirm('Apakah Anda yakin ingin menghapus gambar ini?')) {
-            var form = document.getElementById('delete-image-form');
-            form.action = "{{ url('penjual/products/' . $product->id . '/images') }}/" + imageId;
-            form.submit();
-        }
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Gambar yang dihapus tidak dapat dikembalikan!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var form = document.getElementById('delete-image-form');
+                form.action = "{{ url('penjual/products/' . $product->id . '/images') }}/" + imageId;
+                form.submit();
+            }
+        });
     }
 </script>
 @endsection

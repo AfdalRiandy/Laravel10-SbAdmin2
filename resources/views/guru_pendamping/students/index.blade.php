@@ -31,7 +31,7 @@
                             <td>{{ $student->penjualProfile->jurusan ?? '-' }}</td>
                             <td>{{ $student->products->count() }}</td>
                             <td>
-                                <a href="#" class="btn btn-sm btn-info">
+                                <a href="{{ route('guru_pendamping.students.show', $student->id) }}" class="btn btn-sm btn-info">
                                     <i class="fas fa-eye"></i> Detail
                                 </a>
                             </td>

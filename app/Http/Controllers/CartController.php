@@ -10,7 +10,7 @@ class CartController extends Controller
 {
     public function index()
     {
-        $cart = auth()->user()->cart()->with('items.product')->firstOrCreate(['user_id' => auth()->id()]);
+        $cart = auth()->user()->cart()->with(['items.product.images', 'items.product.category', 'items.product.user.penjualProfile'])->firstOrCreate(['user_id' => auth()->id()]);
         return view('cart.index', compact('cart'));
     }
 

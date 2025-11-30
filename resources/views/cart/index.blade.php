@@ -57,7 +57,7 @@
                                         <form action="{{ route('cart.destroy', $item->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="text-red-600 hover:text-red-900">Hapus</button>
+                                            <button type="submit" class="text-red-600 hover:text-red-900" onclick="confirmDelete(event)">Hapus</button>
                                         </form>
                                     </td>
                                 </tr>

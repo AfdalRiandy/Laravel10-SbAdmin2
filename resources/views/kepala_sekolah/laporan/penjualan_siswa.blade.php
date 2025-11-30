@@ -2,12 +2,13 @@
 @section('title', 'Laporan Penjualan Siswa')
 
 @section('content')
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Laporan Penjualan Siswa</h1>
+<div class="container-fluid">
+    <div class="mb-4 d-sm-flex align-items-center justify-content-between">
+        <h1 class="mb-0 text-gray-800 h3">Laporan Penjualan Siswa</h1>
     </div>
 
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
+    <div class="mb-4 shadow card">
+        <div class="py-3 card-header">
             <h6 class="m-0 font-weight-bold text-primary">Data Penjualan Siswa</h6>
         </div>
         <div class="card-body">
@@ -39,4 +40,13 @@
             </div>
         </div>
     </div>
+</div>
+@endsection
+
+@section('scripts')
+<script>
+    $(document).ready(function() {
+        $('#dataTable').DataTable();
+    });
+</script>
 @endsection

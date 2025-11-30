@@ -78,27 +78,21 @@ class KepalaSekolahController extends Controller
     public function laporanPenjualanSiswa()
     {
         $sellers = User::role('penjual')
-            ->with(['products.items' => function($query) {
-                $query->whereHas('order', function($q) {
-                    $q->whereIn('status', ['paid', 'shipped', 'completed']);
-                });
-            }])
-            ->get()
-            ->map(function ($seller) {
-                $totalSold = 0;
-                $totalRevenue = 0;
-
-                foreach ($seller->products as $product) {
-                    foreach ($product->items as $item) {
-                        $totalSold += $item->quantity;
-                        $totalRevenue += $item->quantity * $item->price;
-                    }
-                }
-
-                $seller->total_sold = $totalSold;
-                $seller->total_revenue = $totalRevenue;
-                return $seller;
-            });
+            ->with('penjualProfile')
+            ->select('users.*')
+            ->selectRaw('(SELECT COALESCE(SUM(order_items.quantity), 0) 
+                FROM order_items 
+                JOIN products ON products.id = order_items.product_id 
+                JOIN orders ON orders.id = order_items.order_id 
+                WHERE products.user_id = users.id 
+                AND orders.status IN ("paid", "shipped", "completed")) as total_sold')
+            ->selectRaw('(SELECT COALESCE(SUM(order_items.quantity * order_items.price), 0) 
+                FROM order_items 
+                JOIN products ON products.id = order_items.product_id 
+                JOIN orders ON orders.id = order_items.order_id 
+                WHERE products.user_id = users.id 
+                AND orders.status IN ("paid", "shipped", "completed")) as total_revenue')
+            ->get();
 
         return view('kepala_sekolah.laporan.penjualan_siswa', compact('sellers'));
     }
@@ -108,15 +102,14 @@ class KepalaSekolahController extends Controller
         $buyers = User::whereHas('orders', function($query) {
                 $query->whereIn('status', ['paid', 'shipped', 'completed']);
             })
-            ->with(['orders' => function($query) {
+            ->select('users.*')
+            ->withCount(['orders as total_purchases' => function($query) {
                 $query->whereIn('status', ['paid', 'shipped', 'completed']);
             }])
-            ->get()
-            ->map(function ($buyer) {
-                $buyer->total_purchases = $buyer->orders->count();
-                $buyer->total_spent = $buyer->orders->sum('total_price');
-                return $buyer;
-            });
+            ->withSum(['orders as total_spent' => function($query) {
+                $query->whereIn('status', ['paid', 'shipped', 'completed']);
+            }], 'total_price')
+            ->get();
 
         return view('kepala_sekolah.laporan.pembelian_siswa', compact('buyers'));
     }

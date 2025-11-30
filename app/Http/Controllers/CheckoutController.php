@@ -12,7 +12,7 @@ class CheckoutController extends Controller
 {
     public function index()
     {
-        $cart = auth()->user()->cart()->with('items.product')->first();
+        $cart = auth()->user()->cart()->with('items.product.images')->first();
         if (!$cart || $cart->items->isEmpty()) {
             return redirect()->route('cart.index')->with('error', 'Keranjang kosong');
         }
@@ -37,7 +37,7 @@ class CheckoutController extends Controller
             ]);
         }
 
-        $cart = auth()->user()->cart;
+        $cart = auth()->user()->cart()->with('items.product')->first();
         $total = 0;
         foreach ($cart->items as $item) {
             $total += $item->product->price * $item->quantity;

@@ -61,6 +61,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'role:guru_pendamping'])->prefix('guru_pendamping')->name('guru_pendamping.')->group(function () {
     Route::get('/dashboard', [GuruPendampingController::class, 'dashboard'])->name('dashboard');
     Route::get('/students', [GuruPendampingController::class, 'students'])->name('students.index');
+    Route::get('/students/{id}', [GuruPendampingController::class, 'showStudent'])->name('students.show');
     Route::get('/reports/sales', [GuruPendampingController::class, 'salesReport'])->name('reports.sales');
 });
 

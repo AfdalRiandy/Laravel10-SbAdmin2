@@ -46,6 +46,7 @@
     </a>
 
     @include('admin.partials.js')
+    <x-sweetalert />
     @stack('scripts')
 </body>
 </html>

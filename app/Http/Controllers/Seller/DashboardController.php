@@ -21,18 +21,16 @@ class DashboardController extends Controller
         })->count();
 
         // Calculate revenue from completed orders for this seller's products
-        $totalRevenue = Order::where('status', 'completed')
-            ->with(['items.product'])
-            ->get()
-            ->sum(function($order) use ($user) {
-                return $order->items->sum(function($item) use ($user) {
-                    return $item->product->user_id == $user->id ? $item->price * $item->quantity : 0;
-                });
-            });
+        $totalRevenue = \Illuminate\Support\Facades\DB::table('order_items')
+            ->join('orders', 'orders.id', '=', 'order_items.order_id')
+            ->join('products', 'products.id', '=', 'order_items.product_id')
+            ->where('products.user_id', $user->id)
+            ->where('orders.status', 'completed')
+            ->sum(\Illuminate\Support\Facades\DB::raw('order_items.price * order_items.quantity'));
 
         $recentOrders = Order::whereHas('items.product', function($q) use ($user) {
             $q->where('user_id', $user->id);
-        })->with(['user', 'items.product' => function($q) use ($user) {
+        })->with(['user', 'items.product.images' => function($q) use ($user) {
             $q->where('user_id', $user->id);
         }])->latest()->limit(5)->get();
 

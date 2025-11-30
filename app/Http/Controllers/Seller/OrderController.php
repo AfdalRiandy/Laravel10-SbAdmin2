@@ -14,7 +14,7 @@ class OrderController extends Controller
         $orders = Order::whereHas('items.product', function($q) use ($user) {
             $q->where('user_id', $user->id);
         })->with(['user', 'items.product' => function($q) use ($user) {
-            $q->where('user_id', $user->id);
+            $q->where('user_id', $user->id)->with('images');
         }])->latest()->get();
 
         return view('seller.order.index', compact('orders'));
@@ -31,7 +31,7 @@ class OrderController extends Controller
             abort(403);
         }
 
-        $order->load(['user', 'items.product']);
+        $order->load(['user', 'items.product.images']);
         return view('seller.order.show', compact('order'));
     }
 }

@@ -2,52 +2,52 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Laporan Penjual</h1>
+    <div class="mb-4 d-sm-flex align-items-center justify-content-between">
+        <h1 class="mb-0 text-gray-800 h3">Laporan Penjual</h1>
     </div>
 
     <!-- Summary -->
     <div class="row">
-        <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
+        <div class="mb-4 col-xl-4 col-md-6">
+            <div class="py-2 shadow card border-left-primary h-100">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Penjual</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalSellers }}</div>
+                        <div class="mr-2 col">
+                            <div class="mb-1 text-xs font-weight-bold text-primary text-uppercase">Total Penjual</div>
+                            <div class="mb-0 text-gray-800 h5 font-weight-bold">{{ $totalSellers }}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-store fa-2x text-gray-300"></i>
+                            <i class="text-gray-300 fas fa-store fa-2x"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
+        <div class="mb-4 col-xl-4 col-md-6">
+            <div class="py-2 shadow card border-left-success h-100">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Penjual Terverifikasi</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $verifiedSellers }}</div>
+                        <div class="mr-2 col">
+                            <div class="mb-1 text-xs font-weight-bold text-success text-uppercase">Penjual Terverifikasi</div>
+                            <div class="mb-0 text-gray-800 h5 font-weight-bold">{{ $verifiedSellers }}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-check-circle fa-2x text-gray-300"></i>
+                            <i class="text-gray-300 fas fa-check-circle fa-2x"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
+        <div class="mb-4 col-xl-4 col-md-6">
+            <div class="py-2 shadow card border-left-warning h-100">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Menunggu Verifikasi</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $pendingVerification }}</div>
+                        <div class="mr-2 col">
+                            <div class="mb-1 text-xs font-weight-bold text-warning text-uppercase">Menunggu Verifikasi</div>
+                            <div class="mb-0 text-gray-800 h5 font-weight-bold">{{ $pendingVerification }}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-clock fa-2x text-gray-300"></i>
+                            <i class="text-gray-300 fas fa-clock fa-2x"></i>
                         </div>
                     </div>
                 </div>
@@ -56,18 +56,18 @@
     </div>
 
     <!-- Top Sellers -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
+    <div class="mb-4 shadow card">
+        <div class="py-3 card-header">
             <h6 class="m-0 font-weight-bold text-primary">Penjual Terbaik</h6>
         </div>
         <div class="card-body">
             <div class="row">
                 @foreach($topSellers as $index => $seller)
-                <div class="col-md-4 mb-3">
+                <div class="mb-3 col-md-4">
                     <div class="card {{ $index == 0 ? 'border-warning' : '' }}">
-                        <div class="card-body text-center">
+                        <div class="text-center card-body">
                             @if($index == 0)
-                                <i class="fas fa-crown fa-2x text-warning mb-2"></i>
+                                <i class="mb-2 fas fa-crown fa-2x text-warning"></i>
                             @endif
                             <h5 class="card-title">{{ $seller->name }}</h5>
                             <p class="card-text">
@@ -88,8 +88,8 @@
     </div>
 
     <!-- All Sellers -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
+    <div class="mb-4 shadow card">
+        <div class="py-3 card-header">
             <h6 class="m-0 font-weight-bold text-primary">Semua Penjual</h6>
         </div>
         <div class="card-body">
@@ -142,4 +142,12 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    $(document).ready(function() {
+        $('#dataTable').DataTable();
+    });
+</script>
 @endsection

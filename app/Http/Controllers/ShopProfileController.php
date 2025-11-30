@@ -19,6 +19,7 @@ class ShopProfileController extends Controller
 
         $products = Product::where('user_id', $seller->id)
             ->where('is_active', true)
+            ->with(['category', 'images', 'user.penjualProfile'])
             ->latest()
             ->paginate(12);
 

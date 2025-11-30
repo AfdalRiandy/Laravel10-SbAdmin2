@@ -18,14 +18,19 @@ class ReportController extends Controller
         $startDate = $request->start_date ?? now()->startOfMonth();
         $endDate = $request->end_date ?? now();
 
-        $orders = Order::with(['items.product', 'user'])
+        $orders = Order::with(['items.product.images', 'user'])
             ->whereBetween('created_at', [$startDate, $endDate])
             ->where('status', '!=', 'cancelled')
             ->latest()
-            ->get();
+            ->paginate(20);
 
-        $totalSales = $orders->sum('total_price');
-        $totalOrders = $orders->count();
+        $totalSales = Order::whereBetween('created_at', [$startDate, $endDate])
+            ->where('status', '!=', 'cancelled')
+            ->sum('total_price');
+            
+        $totalOrders = Order::whereBetween('created_at', [$startDate, $endDate])
+            ->where('status', '!=', 'cancelled')
+            ->count();
 
         return view('admin.report.sales', compact('orders', 'totalSales', 'totalOrders', 'startDate', 'endDate'));
     }
@@ -45,12 +50,9 @@ class ReportController extends Controller
         $productsByCategory = Category::withCount('products')->get();
 
         // Best selling products
-        $bestSelling = Product::select('products.*')
-            ->selectRaw('COALESCE(SUM(order_items.quantity), 0) as total_sold')
-            ->leftJoin('order_items', 'products.id', '=', 'order_items.product_id')
-            ->groupBy('products.id')
+        $bestSelling = Product::withSum('items as total_sold', 'quantity')
             ->orderByDesc('total_sold')
-            ->limit(5)
+            ->take(5)
             ->get();
 
         return view('admin.report.products', compact(
@@ -84,16 +86,14 @@ class ReportController extends Controller
             ->with('penjualProfile')
             ->withCount('products')
             ->select('users.*')
-            ->selectRaw('COALESCE(SUM(orders.total_price), 0) as total_sales')
-            ->leftJoin('products', 'users.id', '=', 'products.seller_id')
-            ->leftJoin('order_items', 'products.id', '=', 'order_items.product_id')
-            ->leftJoin('orders', function($join) {
-                $join->on('order_items.order_id', '=', 'orders.id')
-                    ->where('orders.status', '=', 'completed');
-            })
-            ->groupBy('users.id')
+            ->selectRaw('(SELECT COALESCE(SUM(order_items.quantity * order_items.price), 0) 
+                FROM order_items 
+                JOIN products ON products.id = order_items.product_id 
+                JOIN orders ON orders.id = order_items.order_id 
+                WHERE products.user_id = users.id 
+                AND orders.status = "completed") as total_sales')
             ->orderByDesc('total_sales')
-            ->limit(3)
+            ->take(5)
             ->get();
 
         return view('admin.report.sellers', compact(
