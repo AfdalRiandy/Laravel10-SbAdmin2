@@ -15,7 +15,11 @@ class KepalaSekolahController extends Controller
         $activeSellers = PenjualProfile::where('status_verifikasi', 'verified')->count();
         $totalStudents = User::role('penjual')->count(); 
         
-        return view('kepala_sekolah.dashboard', compact('pendingVerifications', 'activeSellers', 'totalStudents'));
+        // New stats
+        $totalTransactions = \App\Models\Order::whereIn('status', ['paid', 'shipped', 'completed'])->count();
+        $totalRevenue = \App\Models\Order::whereIn('status', ['paid', 'shipped', 'completed'])->sum('total_price');
+        
+        return view('kepala_sekolah.dashboard', compact('pendingVerifications', 'activeSellers', 'totalStudents', 'totalTransactions', 'totalRevenue'));
     }
 
     public function verifikasiPenjual()
@@ -69,5 +73,51 @@ class KepalaSekolahController extends Controller
         ]);
 
         return redirect()->route('kepala_sekolah.verifikasi_penjual')->with('success', 'Pengajuan penjual ditolak.');
+    }
+
+    public function laporanPenjualanSiswa()
+    {
+        $sellers = User::role('penjual')
+            ->with(['products.items' => function($query) {
+                $query->whereHas('order', function($q) {
+                    $q->whereIn('status', ['paid', 'shipped', 'completed']);
+                });
+            }])
+            ->get()
+            ->map(function ($seller) {
+                $totalSold = 0;
+                $totalRevenue = 0;
+
+                foreach ($seller->products as $product) {
+                    foreach ($product->items as $item) {
+                        $totalSold += $item->quantity;
+                        $totalRevenue += $item->quantity * $item->price;
+                    }
+                }
+
+                $seller->total_sold = $totalSold;
+                $seller->total_revenue = $totalRevenue;
+                return $seller;
+            });
+
+        return view('kepala_sekolah.laporan.penjualan_siswa', compact('sellers'));
+    }
+
+    public function laporanPembelianSiswa()
+    {
+        $buyers = User::whereHas('orders', function($query) {
+                $query->whereIn('status', ['paid', 'shipped', 'completed']);
+            })
+            ->with(['orders' => function($query) {
+                $query->whereIn('status', ['paid', 'shipped', 'completed']);
+            }])
+            ->get()
+            ->map(function ($buyer) {
+                $buyer->total_purchases = $buyer->orders->count();
+                $buyer->total_spent = $buyer->orders->sum('total_price');
+                return $buyer;
+            });
+
+        return view('kepala_sekolah.laporan.pembelian_siswa', compact('buyers'));
     }
 }

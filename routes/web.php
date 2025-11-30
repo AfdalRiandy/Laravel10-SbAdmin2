@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\GuruPendampingController;
@@ -40,7 +41,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/dashboard', function () {
-    $user = Illuminate\Support\Facades\Auth::user();
+    $user = Auth::user();
     if ($user->hasRole('admin')) return redirect()->route('admin.dashboard');
     if ($user->hasRole('penjual')) return redirect()->route('seller.dashboard');
     if ($user->hasRole('kepala_sekolah')) return redirect()->route('kepala_sekolah.dashboard');
@@ -70,6 +71,10 @@ Route::middleware(['auth', 'role:kepala_sekolah'])->prefix('kepala_sekolah')->na
     Route::get('/verifikasi-penjual/{id}', [KepalaSekolahController::class, 'showVerifikasi'])->name('verifikasi.show');
     Route::put('/verifikasi-penjual/{id}/approve', [KepalaSekolahController::class, 'approvePenjual'])->name('verifikasi.approve');
     Route::put('/verifikasi-penjual/{id}/reject', [KepalaSekolahController::class, 'rejectPenjual'])->name('verifikasi.reject');
+
+    // Laporan
+    Route::get('/laporan/penjualan', [KepalaSekolahController::class, 'laporanPenjualanSiswa'])->name('laporan.penjualan');
+    Route::get('/laporan/pembelian', [KepalaSekolahController::class, 'laporanPembelianSiswa'])->name('laporan.pembelian');
 });
 
 //penjual
@@ -90,7 +95,7 @@ Route::middleware(['auth', 'role:penjual'])->prefix('penjual')->name('seller.')-
 });
 
 //pembeli
-Route::middleware(['auth', 'role:pembeli'])->prefix('pembeli')->name('pembeli.')->group(function () {
+Route::middleware(['auth', 'role:pembeli|penjual'])->prefix('pembeli')->name('pembeli.')->group(function () {
     Route::get('/dashboard', [PembeliController::class, 'dashboard'])->name('dashboard');
     Route::get('/become-seller', [PembeliController::class, 'becomeSeller'])->name('become-seller.create');
     Route::post('/become-seller', [PembeliController::class, 'storeSeller'])->name('become-seller.store');
