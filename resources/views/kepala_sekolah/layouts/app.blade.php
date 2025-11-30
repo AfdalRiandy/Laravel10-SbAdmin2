@@ -8,14 +8,14 @@
     <meta name="author" content="">
     <title>@yield('title') - Admin Panel</title>
     
-    @include('peserta.partials.css')
+    @include('kepala_sekolah.partials.css')
     @stack('styles')
 </head>
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
         <!-- Sidebar -->
-        @include('peserta.partials.sidebar')
+        @include('kepala_sekolah.partials.sidebar')
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -23,7 +23,7 @@
             <!-- Main Content -->
             <div id="content">
                 <!-- Topbar -->
-                @include('peserta.partials.header')
+                @include('kepala_sekolah.partials.header')
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -33,7 +33,7 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            @include('peserta.partials.footer')
+            @include('kepala_sekolah.partials.footer')
             <!-- End of Footer -->
         </div>
         <!-- End of Content Wrapper -->
@@ -41,11 +41,11 @@
     <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
+    <a class="rounded scroll-to-top" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
 
-    @include('peserta.partials.js')
+    @include('kepala_sekolah.partials.js')
     @stack('scripts')
 </body>
 </html>

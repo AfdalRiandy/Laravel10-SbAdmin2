@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class PanitiaController extends Controller
+class KepalaSekolahController extends Controller
 {
     public function dashboard()
     {
-        return view('panitia.dashboard');
+        return view('kepala_sekolah.dashboard');
     }
 }

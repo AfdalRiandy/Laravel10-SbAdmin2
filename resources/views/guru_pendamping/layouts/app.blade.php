@@ -8,14 +8,14 @@
     <meta name="author" content="">
     <title>@yield('title') - Admin Panel</title>
     
-    @include('panitia.partials.css')
+    @include('guru_pendamping.partials.css')
     @stack('styles')
 </head>
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
         <!-- Sidebar -->
-        @include('panitia.partials.sidebar')
+        @include('guru_pendamping.partials.sidebar')
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -23,7 +23,7 @@
             <!-- Main Content -->
             <div id="content">
                 <!-- Topbar -->
-                @include('panitia.partials.header')
+                @include('guru_pendamping.partials.header')
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -33,7 +33,7 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            @include('panitia.partials.footer')
+            @include('guru_pendamping.partials.footer')
             <!-- End of Footer -->
         </div>
         <!-- End of Content Wrapper -->
@@ -41,11 +41,11 @@
     <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
+    <a class="rounded scroll-to-top" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
 
-    @include('panitia.partials.js')
+    @include('guru_pendamping.partials.js')
     @stack('scripts')
 </body>
 </html>

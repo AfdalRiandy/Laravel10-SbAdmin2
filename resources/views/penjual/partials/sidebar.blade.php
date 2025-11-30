@@ -5,15 +5,15 @@
         <div class="sidebar-brand-icon">
             <i class="fas fa-user"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">panitia</div>
+        <div class="mx-3 sidebar-brand-text">penjual</div>
     </a>
 
     <!-- Divider -->
-    <hr class="sidebar-divider my-0">
+    <hr class="my-0 sidebar-divider">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item {{ request()->routeIs('panitia.dashboard') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('panitia.dashboard') }}">
+    <li class="nav-item {{ request()->routeIs('penjual.dashboard') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('penjual.dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>

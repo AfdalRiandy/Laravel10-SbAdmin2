@@ -1,7 +1,7 @@
-@extends('peserta.layouts.app')
+@extends('pembeli.layouts.app')
 @section('title', 'Dashboard')
 
 @section('content')
 <!-- Page Heading -->
-<h2>ini halaman peserta</h2>
+<h2>ini halaman pembeli</h2>
 @endsection

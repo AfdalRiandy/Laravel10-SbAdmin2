@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PanitiaController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\PesertaController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\GuruPendampingController;
+use App\Http\Controllers\KepalaSekolahController;
+use App\Http\Controllers\PenjualController;
+use App\Http\Controllers\PembeliController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +21,7 @@ use App\Http\Controllers\Admin\UserController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.custom-login');
 });
 
 Route::get('/dashboard', function () {
@@ -33,10 +35,25 @@ Route::middleware('auth')->group(function () {
 });
 
 // Role-specific dashboards
-//panitia
-Route::middleware(['auth', 'role:panitia'])->prefix('panitia')->name('panitia.')->group(function () {
-    Route::get('/dashboard', [PanitiaController::class, 'dashboard'])->name('dashboard');
+//guru_pendamping
+Route::middleware(['auth', 'role:guru_pendamping'])->prefix('guru_pendamping')->name('guru_pendamping.')->group(function () {
+    Route::get('/dashboard', [GuruPendampingController::class, 'dashboard'])->name('dashboard');
 });
+
+//kepala_sekolah
+Route::middleware(['auth', 'role:kepala_sekolah'])->prefix('kepala_sekolah')->name('kepala_sekolah.')->group(function () {
+    Route::get('/dashboard', [KepalaSekolahController::class, 'dashboard'])->name('dashboard');
+});
+
+//penjual
+Route::middleware(['auth', 'role:penjual'])->prefix('penjual')->name('penjual.')->group(function () {
+    Route::get('/dashboard', [PenjualController::class, 'dashboard'])->name('dashboard');
+});
+
+//pembeli
+Route::middleware(['auth', 'role:pembeli'])->prefix('pembeli')->name('pembeli.')->group(function () {
+    Route::get('/dashboard', [PembeliController::class, 'dashboard'])->name('dashboard');
+}); 
 
 //admin
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
@@ -44,11 +61,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     
     // User management routes
     Route::resource('users', UserController::class);
-});
-
-// peserta
-Route::middleware(['auth', 'role:peserta'])->prefix('peserta')->name('peserta.')->group(function () {
-    Route::get('/dashboard', [PesertaController::class, 'dashboard'])->name('dashboard');
 });
         
 require __DIR__.'/auth.php';

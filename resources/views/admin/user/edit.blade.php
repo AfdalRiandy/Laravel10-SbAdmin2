@@ -4,15 +4,15 @@
 @section('content')
 <div class="container-fluid">
     <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Edit User</h1>
-        <a href="{{ route('admin.users.index') }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm">
+    <div class="mb-4 d-sm-flex align-items-center justify-content-between">
+        <h1 class="mb-0 text-gray-800 h3">Edit User</h1>
+        <a href="{{ route('admin.users.index') }}" class="shadow-sm d-none d-sm-inline-block btn btn-sm btn-secondary">
             <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to Users
         </a>
     </div>
 
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
+    <div class="mb-4 shadow card">
+        <div class="py-3 card-header">
             <h6 class="m-0 font-weight-bold text-primary">User Information</h6>
         </div>
         <div class="card-body">
@@ -54,8 +54,10 @@
                     <select class="form-control @error('role') is-invalid @enderror" id="role" name="role" required>
                         <option value="" disabled>Select Role</option>
                         <option value="admin" {{ (old('role', $user->role) == 'admin') ? 'selected' : '' }}>admin</option>
-                        <option value="panitia" {{ (old('role', $user->role) == 'panitia') ? 'selected' : '' }}>panitia</option>
-                        <option value="peserta" {{ (old('role', $user->role) == 'peserta') ? 'selected' : '' }}>peserta</option>
+                        <option value="kepala_sekolah" {{ (old('role', $user->role) == 'kepala_sekolah') ? 'selected' : '' }}>kepala_sekolah</option>
+                        <option value="pembeli" {{ (old('role', $user->role) == 'pembeli') ? 'selected' : '' }}>pembeli</option>
+                        <option value="penjual" {{ (old('role', $user->role) == 'penjual') ? 'selected' : '' }}>penjual</option>
+                        <option value="guru_pendamping" {{ (old('role', $user->role) == 'guru_pendamping') ? 'selected' : '' }}>guru_pendamping</option>
                     </select>
                     @error('role')
                         <span class="invalid-feedback">{{ $message }}</span>

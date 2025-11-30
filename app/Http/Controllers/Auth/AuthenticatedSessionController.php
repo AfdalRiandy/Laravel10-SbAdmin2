@@ -34,12 +34,16 @@ class AuthenticatedSessionController extends Controller
             $user = Auth::user();
             
             switch ($user->role) {
-                case 'panitia':
-                    return redirect()->route('panitia.dashboard');
+                case 'penjual':
+                    return redirect()->route('penjual.dashboard');
                 case 'admin':
                     return redirect()->route('admin.dashboard');
-                case 'peserta':
-                    return redirect()->route('peserta.dashboard');
+                case 'kepala_sekolah':
+                    return redirect()->route('kepala_sekolah.dashboard');
+                case 'guru_pembimbing':
+                    return redirect()->route('guru_pembimbing.dashboard');
+                case 'pembeli':
+                    return redirect()->route('pembeli.dashboard');
                 default:
                     return redirect(RouteServiceProvider::HOME);
             }
